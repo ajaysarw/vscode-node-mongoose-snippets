@@ -1,0 +1,61 @@
+{
+  "Mongoose Model Boilerplate": {
+    "prefix": "mongmodel",
+    "body": [
+      "const mongoose = require('mongoose');",
+      "",
+      "const ${1:${TM_FILENAME_BASE}_schema} = new mongoose.Schema({",
+      "    title: { type: String, required: [true, \"Post must have title\"] },",
+      "    body: { type: String, required: [true, \"Post must have body\"] },",
+      "});",
+      "",
+      "const ${2:${TM_FILENAME_BASE}Model} = mongoose.model(\"${3:${TM_FILENAME_BASE}}\", ${1:${TM_FILENAME_BASE}_schema});",
+      "module.exports = ${2:${TM_FILENAME_BASE}Model};"
+    ],
+    "description": "Generate a Mongoose Model based on file name"
+  },
+
+  "Mongoose Controller Boilerplate": {
+    "prefix": "mongcont",
+    "body": [
+      "const ${1:${TM_FILENAME_BASE}}Model = require('../models/${1:${TM_FILENAME_BASE}}.model');",
+      "",
+      "const getAll${1/(.*)/${1:/capitalize}/}s = async (req, res, next) => {",
+      "    const items = await ${1}Model.find();",
+      "    res.status(200).send({ status: \"success\", results: items.length, data: items });",
+      "};",
+      "",
+      "const get${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "    const item = await ${1}Model.findById(req.params.id);",
+      "    res.status(200).send({ status: \"success\", data: item });",
+      "};",
+      "",
+      "const create${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "    const item = await ${1}Model.create(req.body);",
+      "    res.status(201).send({ status: \"success\", data: item });",
+      "};",
+      "",
+      "const update${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "    const item = await ${1}Model.findByIdAndUpdate(req.params.id, req.body, {",
+      "        new: true,",
+      "        runValidators: true",
+      "    });",
+      "    res.status(200).send({ status: \"success\", data: item });",
+      "};",
+      "",
+      "const delete${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "    const item = await ${1}Model.findByIdAndDelete(req.params.id);",
+      "    res.status(200).send({ status: \"success\", data: item });",
+      "};",
+      "",
+      "module.exports = {",
+      "    getAll${1/(.*)/${1:/capitalize}/}s,",
+      "    get${1/(.*)/${1:/capitalize}/},",
+      "    create${1/(.*)/${1:/capitalize}/},",
+      "    update${1/(.*)/${1:/capitalize}/},",
+      "    delete${1/(.*)/${1:/capitalize}/}",
+      "};"
+    ],
+    "description": "Generate a Mongoose Controller based on file name"
+  }
+}
