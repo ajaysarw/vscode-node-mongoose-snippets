@@ -1,6 +1,6 @@
 {
   "Mongoose Model Boilerplate": {
-    "prefix": "mongmodel",
+    "prefix": "mongoosemodel",
     "body": [
       "const mongoose = require('mongoose');",
       "",
@@ -16,26 +16,26 @@
   },
 
   "Mongoose Controller Boilerplate": {
-    "prefix": "mongcont",
+    "prefix": "mongoosecontroller",
     "body": [
-      "const ${1:${TM_FILENAME_BASE}}Model = require('../models/${1:${TM_FILENAME_BASE}}.model');",
+      "const ${1:${TM_FILENAME_BASE}}Model = require('../models/${1}');",
       "",
-      "const getAll${1/(.*)/${1:/capitalize}/}s = async (req, res, next) => {",
+      "const getAll${2:Customer}s = async (req, res, next) => {",
       "    const items = await ${1}Model.find();",
       "    res.status(200).send({ status: \"success\", results: items.length, data: items });",
       "};",
       "",
-      "const get${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "const get${2} = async (req, res, next) => {",
       "    const item = await ${1}Model.findById(req.params.id);",
       "    res.status(200).send({ status: \"success\", data: item });",
       "};",
       "",
-      "const create${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "const create${2} = async (req, res, next) => {",
       "    const item = await ${1}Model.create(req.body);",
       "    res.status(201).send({ status: \"success\", data: item });",
       "};",
       "",
-      "const update${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "const update${2} = async (req, res, next) => {",
       "    const item = await ${1}Model.findByIdAndUpdate(req.params.id, req.body, {",
       "        new: true,",
       "        runValidators: true",
@@ -43,19 +43,19 @@
       "    res.status(200).send({ status: \"success\", data: item });",
       "};",
       "",
-      "const delete${1/(.*)/${1:/capitalize}/} = async (req, res, next) => {",
+      "const delete${2} = async (req, res, next) => {",
       "    const item = await ${1}Model.findByIdAndDelete(req.params.id);",
       "    res.status(200).send({ status: \"success\", data: item });",
       "};",
       "",
       "module.exports = {",
-      "    getAll${1/(.*)/${1:/capitalize}/}s,",
-      "    get${1/(.*)/${1:/capitalize}/},",
-      "    create${1/(.*)/${1:/capitalize}/},",
-      "    update${1/(.*)/${1:/capitalize}/},",
-      "    delete${1/(.*)/${1:/capitalize}/}",
+      "    getAll${2}s,",
+      "    get${2},",
+      "    create${2},",
+      "    update${2},",
+      "    delete${2}",
       "};"
     ],
-    "description": "Generate a Mongoose Controller based on file name"
+    "description": "Generate a Mongoose Controller with manual CamelCase placeholder"
   }
 }
